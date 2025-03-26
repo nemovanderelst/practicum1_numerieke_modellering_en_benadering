@@ -27,3 +27,4 @@ end
 figure;
 semilogy(J, Dkl, J, Dmod); xlabel('j'); ylabel(['||q_{j}^{alg} - q_{j}||_{2}']);
 legend('klassiek', 'gewijzigd');
+

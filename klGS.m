@@ -1,17 +1,14 @@
 function [Q, R] = klGS(A)
     [m, n] = size(A);
-    assert(m >= n);
-
+    
+    Q = zeros(m, n);
+    R = zeros(n, n);
     V = A;
-    Q = eye(m, n);
-    R = eye(n, n);
 
-    for j = 1:n
-        for i = 1:(j-1)
-            R(i, j) = Q(:, i)'*A(:, j);
-            V(:, j) = V(:, j) - R(i, j)*Q(:, i);
-        end
-        R(j, j) = sqrt(V(:, j)'*V(:, j));
-        Q(:, j) = V(:, j) / R(j, j);
+    for i = 1:n
+        R(i, i) = norm(V(:, i));
+        Q(:, i) = V(:, i) / R(i, i);
+        R(i, i+1:n) = Q(:, i)'*A(:, i+1:n);
+        V(:, i+1:n) = V(:, i+1:n) - Q(:, i)*R(i, i+1:n);
     end
 end
