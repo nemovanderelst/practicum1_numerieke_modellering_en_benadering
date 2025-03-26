@@ -1,28 +1,27 @@
+%Figuur voor vraag 1.4
 m = 200; n = 40;
 
 Q = orth(randn(m, n));
 
-D = eye(n);
+D = zeros(n);
+D(1:n, 1:n) = 2^(1-(1:n));
+
 V = eye(n);
-for i = 1:n
-    D(i, i) = 2^(1-i);
-    V(1, i) = 1;
-end
+V(1, 1:n) = 1;
 
 A = Q*D*V;
 
 [Qkl, Rkl] = klGS(A);
 [Qmod, Rmod] = modGS(A);
-[Qher, Rher] = herGS(A);
 
 Dkl = zeros(1, n);
+Dkl(1:n) = norm(Q(:, 1:n) - Qkl(:, 1:n));
+
 Dmod = zeros(1, n);
+Dmod(1:n) = norm(Q(:, 1:n) - Qmod(:, 1:n));
+
 J = zeros(1, n);
-for i = 1:n
-    Dkl(i) = norm(Q(:, i) - Qkl(:, i));
-    Dmod(i) = norm(Q(:, i) - Qmod(:, i));
-    J(i) = i;
-end
+J(1:n) = 1:n;
 
 figure;
 semilogy(J, Dkl, J, Dmod); xlabel('j'); ylabel(['||q_{j}^{alg} - q_{j}||_{2}']);
