@@ -35,13 +35,12 @@ figure;
 semilogy(1:n, Dkl, 1:n, Qklorth, 1:n, Dmod, 1:n, Qmodorth); xlabel('j'); ylabel('||q_{j}^{alg} - q_{j}||_{2}');
 legend('klassiek', 'orthogonaliteit klassiek', 'gewijzigd', 'orthogonaliteit gewijzgid');
 %%
-% Vraag 1.8 en 1.9
+% Vraag 1.8
 clear;
 m = 200; n = 50;
 
-Qklorth = zeros(1,n);
-Qmodorth = zeros(1,n);
-Qherorth = zeros(1,n);
+Qklorth = zeros(size(1,n));
+Qmodorth = zeros(size(1,n));
 
 for k=1:n
     Q = orth(randn(m,n));
@@ -50,13 +49,11 @@ for k=1:n
     A = Q*D*V;
     [Qkl, Rkl] = klGS(A);
     [Qmod, Rmod] = modGS(A);
-    [Qher, Rher] = herGS(A);
     Qklorth(k) = norm(eye(n,n) - Qkl'*Qkl);
     Qmodorth(k) = norm(eye(n,n) - Qmod'*Qmod);
-    Qherorth(k) = norm(eye(n,n) - Qher'*Qher);
 end
+[Qkl, Rkl] = klGS(A);
+[Qmod, Rmod] = modGS(A);
 
-
-figure;
-semilogy(1:n, Qklorth, 'r-', 1:n, Qmodorth, 1:n, Qherorth); xlabel('k'); ylabel('fout op orthogonaliteit');
-legend('klassiek', 'gewijzigd', 'herhaald');
+Qklorth = zeros(1, n);
+Qmodorth = zeros(1, n);
