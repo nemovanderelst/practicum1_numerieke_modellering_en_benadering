@@ -60,3 +60,18 @@ end
 figure;
 semilogy(1:n, Qklorth, 'r-', 1:n, Qmodorth, 1:n, Qherorth); xlabel('k'); ylabel('fout op orthogonaliteit');
 legend('klassiek', 'gewijzigd', 'herhaald');
+%% 
+% Stel je data voor:
+t = [0 0 0 0 1 2 3 4 5 5 5 5];  % knooppuntenrij voor kubische spline
+x = [0.5 1.5 2.5 3.5 4.5];      % meetpunten
+b = [1 2 0 1 3];                % functiewaarden op x
+xeval = linspace(0, 5, 100);    % evaluatiepunten
+
+% Bereken spline
+z = kkb_cubespline(t, x, b, xeval);
+
+% Plot
+plot(xeval, z, 'b-', x, b, 'ro')
+legend('spline', 'meetpunten')
+
+

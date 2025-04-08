@@ -76,25 +76,25 @@ function N = deBoor_N(t, k, x)
     % k = graad, k+1 = orde
     % x = evaluatiepunt
 
-    n = length(t) - (k+1);
+    n = length(t) - k;
     N = zeros(1, n);
    
     % Zoek i zodat t(i) <= x < t(i+1)
-    i = tBegin_Index(t, x);
+    index = tBeginIndex(t, x);
 
     % Initialisatie van de tabel D voor orde 1
-    D = zeros(k+1, k+1);
-    for j = 1:k+1
-        if t(i - k + j) <= x && x < t(i - k + j + 1)
+    D = zeros(k, k);
+    for j = 1:k
+        if t(i - k + j + 1) <= x && x < t(i - k + j + 2)
             D(j,1) = 1;
         end
     end
 
     % Recursieve opbouw
-    for d = 2:k+1
-        for j = 1:(k - d + 2)
-            t1 = t(i - k + j + d - 2);
-            t2 = t(i - k + j + d - 1);
+    for d = 2:k
+        for j = 1:(k - d + 1)
+            t1 = t(i - k + j + d - 1);
+            t2 = t(i - k + j + d);
             left = 0;
             if t2 - t1 ~= 0
                 left = (x - t1) / (t2 - t1) * D(j, d - 1);
