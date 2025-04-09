@@ -1,23 +1,24 @@
-function [Q, R] = herGS(A)
-    [m, n] = size(A);
-    
+function [Q,R] = herGS(A)
+    [m,n] = size(A);
+
     V = A;
     W = zeros(m, n);
     Q = zeros(m, n);
     R = zeros(n, n);
     S = zeros(m, n);
 
+    for i=1:n
+        R(1:(i-1), i) = Q(:,1:(i-1))'*A(:,i);
+        V(:,i) = V(:,i) - Q(:,1:(i-1))*R(1:(i-1), i);
 
-    for i = 1:n
-        R(i, i) = norm(V(:, i));
-        Q(:, i) = V(:, i) / R(i, i);
-        R(i, i+1:n) = Q(:, i)'*A(:, i+1:n);
-        V(:, i+1:n) = V(:, i+1:n) - Q(:, i)*R(i, i+1:n);
-    
-        W(:, i) = V(:, i);
-        S(i, i+1:n) = Q(:, i)'*W(:, i+1:n);
-        V(:, i+1:n) = V(:, i+1:n) - Q(:, i)*S(i, i+1:n);
-        R(i, i+1:n) = R(i, i+1:n) + S(i, i+1:n);
+        W(:,i) = V(:,i);
+
+        S(1:(i-1), i) = Q(:,1:(i-1))'*W(:,i);
+        V(:,i) = V(:,i) - Q(:,1:(i-1))*S(1:(i-1), i);
+        R(1:(i-1), i) = R(1:(i-1), i) + S(1:(i-1), i);
+
+        R(i,i) = norm(V(:,i));
+        Q(:,i) = V(:,i)/R(i,i);
     end
 end
 

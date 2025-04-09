@@ -1,0 +1,12 @@
+function [Q, R] = klGS(A)
+    [m, n] = size(A);
+    
+    Q = zeros(m, n);
+    R = zeros(n, n);
+    V = A;
+
+    for j=1:n
+        R(1:(j-1) )
+    
+    end
+end

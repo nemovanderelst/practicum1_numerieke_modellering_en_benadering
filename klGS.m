@@ -5,10 +5,11 @@ function [Q, R] = klGS(A)
     R = zeros(n, n);
     V = A;
 
-    for i = 1:n
-        R(i, i) = norm(V(:, i));
-        Q(:, i) = V(:, i) / R(i, i);
-        R(i, i+1:n) = Q(:, i)'*A(:, i+1:n);
-        V(:, i+1:n) = V(:, i+1:n) - Q(:, i)*R(i, i+1:n);
+    for i=1:n
+        R(1:(i-1),i) = Q(:,1:(i-1))'*A(:,i);
+        V(:,i) = V(:,i) - Q(:,1:(i-1))*R(1:(i-1),i);
+
+        R(i,i) = norm(V(:,i));
+        Q(:,i) = V(:,i)/R(i,i);
     end
 end
