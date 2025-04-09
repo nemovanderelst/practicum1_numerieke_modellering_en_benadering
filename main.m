@@ -14,10 +14,9 @@ A = Q*D*V;
 [Qkl, Rkl] = klGS(A);
 [Qmod, Rmod] = modGS(A);
 
-
 Dkl = vecnorm(Q-Qkl, 2, 1);
 
-Dmod(1:n) = vecnorm(Q - Qmod, 2, 1);
+Dmod = vecnorm(Q - Qmod, 2, 1);
 
 figure;
 semilogy(1:n, Dkl, 1:n, Dmod); xlabel('j'); ylabel('||q_{j}^{alg} - q_{j}||_{2}');
@@ -56,9 +55,8 @@ for k=1:n
     Qherorth(k) = norm(eye(n,n) - Qher'*Qher);
 end
 
-
 figure;
-semilogy(1:n, Qklorth, 'r-', 1:n, Qmodorth, 1:n, Qherorth); xlabel('k'); ylabel('fout op orthogonaliteit');
+semilogy(1:n, Qklorth, 'r-', 1:n, Qmodorth, 1:n, Qherorth, 1:n, (2.^(1:n))); xlabel('k'); ylabel('fout op orthogonaliteit');
 legend('klassiek', 'gewijzigd', 'herhaald');
 %% 
 % Stel je data voor:
