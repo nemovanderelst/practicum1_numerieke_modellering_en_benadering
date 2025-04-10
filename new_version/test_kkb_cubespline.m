@@ -61,4 +61,5 @@ legend('Splinebenadering', 'Gegevenspunten', 'Originele functie', 'Location', 'B
 title('B-spline benadering van f(x) = sin(x) + 0.5*cos(2x)')
 xlabel('x'); ylabel('y');
 grid on;
-
+%%
+% Parameter
