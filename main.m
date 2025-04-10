@@ -58,6 +58,34 @@ end
 figure;
 semilogy(1:n, Qklorth, 'r-', 1:n, Qmodorth, 1:n, Qherorth, 1:n, (2.^(1:n))); xlabel('k'); ylabel('fout op orthogonaliteit');
 legend('klassiek', 'gewijzigd', 'herhaald');
+%%
+% Vraag 1.11
+clear;
+load("Amat.mat");
+
+[m, n] = size(Amat);
+
+[Qkl, Rkl] = klGS(Amat);
+[Qmod, Rmod] = modGS(Amat);
+[Qher, Rher] = herGS(Amat);
+
+Ekl = Qkl'*Qkl - eye(n, n);
+Emod = Qmod'*Qmod - eye(n, n);
+Eher = Qher'*Qher - eye(n, n);
+
+tiledlayout(2, 2);
+nexttile;
+hkl = heatmap(log(abs(Ekl)));
+hkl.ColorLimits = [-40, 0];
+hkl.Title = 'Klassiek algoritme';
+nexttile;
+hmod = heatmap(log(abs(Emod)));
+hmod.ColorLimits = [-40, 0];
+hmod.Title = 'Gewijzigd algoritme';
+nexttile;
+hher = heatmap(log(abs(Eher)));
+hher.ColorLimits = [-40,-30];
+hher.Title = 'Herhaald algoritme';
 %% 
 % Stel je data voor:
 t = [0 0 0 0 1 2 3 4 5 5 5 5];  % knooppuntenrij voor kubische spline
