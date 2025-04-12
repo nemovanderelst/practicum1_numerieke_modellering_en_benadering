@@ -18,7 +18,7 @@ Dmod = vecnorm(Q - Qmod, 2, 1);
 
 %plot voor vraag 1.4
 figure;
-semilogy(1:n, Dkl, 1:n, Dmod); xlabel('j'); ylabel('||q_{j}^{alg} - q_{j}||_{2}');
+semilogy(1:n, Dkl, 'r', 1:n, Dmod, 'g', 'LineWidth', 1); xlabel('j'); ylabel('||q_{j}^{alg} - q_{j}||_{2}');
 legend('klassiek', 'gewijzigd');
 
 %Vraag 1.7
@@ -32,7 +32,7 @@ end
 
 %Plot fout in orthogonaliteit erbij
 figure;
-semilogy(1:n, Dkl, 1:n, Qklorth, 1:n, Dmod, 1:n, Qmodorth); xlabel('j'); ylabel('||q_{j}^{alg} - q_{j}||_{2}');
+semilogy(1:n, Dkl, 'r', 1:n, Qklorth, '--r', 1:n, Dmod, 'g', 1:n, Qmodorth, '--g', 'LineWidth', 1); xlabel('j'); ylabel('||q_{j}^{alg} - q_{j}||_{2}');
 legend('klassiek', 'orthogonaliteit klassiek', 'gewijzigd', 'orthogonaliteit gewijzgid');
 %%
 % Vraag 1.8 en 1.9
@@ -62,7 +62,7 @@ end
 
 %plot
 figure;
-semilogy(1:n, Qklorth, 'r-', 1:n, Qmodorth, 1:n, Qherorth, 1:n, (2.^(1:n))); xlabel('k'); ylabel('fout op orthogonaliteit');
+semilogy(1:n, Qklorth, 'r', 1:n, Qmodorth,'g' ,1:n ,Qherorth ,'b' ,'LineWidth', 1); xlabel('k'); ylabel('fout op orthogonaliteit');
 legend('klassiek', 'gewijzigd', 'herhaald');
 %%
 % Vraag 1.11
@@ -81,6 +81,7 @@ Emod = Qmod'*Qmod - eye(n, n);
 Eher = Qher'*Qher - eye(n, n);
 
 %Plot
+figure;
 tiledlayout(2, 2);
 nexttile;
 hkl = heatmap(log(abs(Ekl)));
