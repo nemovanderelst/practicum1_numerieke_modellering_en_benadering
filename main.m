@@ -1,28 +1,28 @@
-%Figuur voor vraag 1.4
+%Figuur voor vraag 1.4 en 1.7
 clear;
+
+%Stel matrices Q, D, V en A op.
 m = 200; n = 40;
 
 Q = orth(randn(m, n));
-
 D = diag(2.^(1-(1:n)));
-
-V = eye(n);
-V(1, 1:n) = 1;
-
+V = eye(n); V(1, 1:n) = 1;
 A = Q*D*V;
 
-[Qkl, Rkl] = klGS(A);
-[Qmod, Rmod] = modGS(A);
+%Voer klassiek en gewijzigd Gramm-Schmidt-algoritme uit en bereken de fout
+[Qkl, ~] = klGS(A);
+[Qmod, ~] = modGS(A);
 
 Dkl = vecnorm(Q-Qkl, 2, 1);
-
 Dmod = vecnorm(Q - Qmod, 2, 1);
 
+%plot voor vraag 1.4
 figure;
 semilogy(1:n, Dkl, 1:n, Dmod); xlabel('j'); ylabel('||q_{j}^{alg} - q_{j}||_{2}');
 legend('klassiek', 'gewijzigd');
 
 %Vraag 1.7
+%Bereken fout in orthogonaliteit
 Qklorth = zeros(1, n);
 Qmodorth = zeros(1, n);
 for i=1:n
@@ -30,49 +30,57 @@ for i=1:n
     Qmodorth(i) = norm(eye(i,i) - Qmod(:, 1:i)'*Qmod(:,1:i));
 end
 
+%Plot fout in orthogonaliteit erbij
 figure;
 semilogy(1:n, Dkl, 1:n, Qklorth, 1:n, Dmod, 1:n, Qmodorth); xlabel('j'); ylabel('||q_{j}^{alg} - q_{j}||_{2}');
 legend('klassiek', 'orthogonaliteit klassiek', 'gewijzigd', 'orthogonaliteit gewijzgid');
 %%
 % Vraag 1.8 en 1.9
 clear;
+
+%Stel matrices op
 m = 200; n = 50;
 
 Qklorth = zeros(1,n);
 Qmodorth = zeros(1,n);
 Qherorth = zeros(1,n);
 
+%Bereken grootte van de fout in orthogonaliteit voor de drie algoritmes in
+%functie van k
 for k=1:n
     Q = orth(randn(m,n));
     V = orth(randn(n,n));
     D = diag(2.^linspace(0,k,n));
     A = Q*D*V;
-    [Qkl, Rkl] = klGS(A);
-    [Qmod, Rmod] = modGS(A);
-    [Qher, Rher] = herGS(A);
+    [Qkl, ~] = klGS(A);
+    [Qmod, ~] = modGS(A);
+    [Qher, ~] = herGS(A);
     Qklorth(k) = norm(eye(n,n) - Qkl'*Qkl);
     Qmodorth(k) = norm(eye(n,n) - Qmod'*Qmod);
     Qherorth(k) = norm(eye(n,n) - Qher'*Qher);
 end
 
+%plot
 figure;
 semilogy(1:n, Qklorth, 'r-', 1:n, Qmodorth, 1:n, Qherorth, 1:n, (2.^(1:n))); xlabel('k'); ylabel('fout op orthogonaliteit');
 legend('klassiek', 'gewijzigd', 'herhaald');
 %%
 % Vraag 1.11
 clear;
+%laad matrix Amat in en vooer de drie algoritmes uit
 load("Amat.mat");
-
 [m, n] = size(Amat);
 
-[Qkl, Rkl] = klGS(Amat);
-[Qmod, Rmod] = modGS(Amat);
-[Qher, Rher] = herGS(Amat);
+[Qkl, ~] = klGS(Amat);
+[Qmod, ~] = modGS(Amat);
+[Qher, ~] = herGS(Amat);
 
+%Test orthogonaliteit
 Ekl = Qkl'*Qkl - eye(n, n);
 Emod = Qmod'*Qmod - eye(n, n);
 Eher = Qher'*Qher - eye(n, n);
 
+%Plot
 tiledlayout(2, 2);
 nexttile;
 hkl = heatmap(log(abs(Ekl)));
@@ -97,6 +105,7 @@ xeval = linspace(0, 5, 100);    % evaluatiepunten
 z = kkb_cubespline(t, x, b, xeval);
 
 % Plot
+figure;
 plot(xeval, z, 'b-', x, b, 'ro')
 legend('spline', 'meetpunten')
 
