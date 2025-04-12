@@ -2,6 +2,7 @@
 clc;
 n = 25;
 f = getFunction('smooth');
+disp(size(t))
 t = getKnotsUniform(0, 2*pi,25);
 x_data = linspace(0, 2*pi, n);
 b = f(x_data)';

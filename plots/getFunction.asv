@@ -8,6 +8,6 @@ function f = getFunction(type)
             (x >= 4 & x < 6) .* (-25+5.*x) + ...
             (x >= 6) .* ((cos(x) - 1));
     elseif strcmp(type, '4')
-        f = @(x) ( sin(20.*x) ./ ( 100.*(x.^2)+5) );
+        f = @(x) ( sin(20*x) / ( 100.*(x.^2)+5) );
     end
 end
