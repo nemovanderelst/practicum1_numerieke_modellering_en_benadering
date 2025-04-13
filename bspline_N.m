@@ -1,5 +1,5 @@
 function val = bspline_N(i, k, t, x)
-    % Recursieve definitie van de B-spline N_{i,k}(x)
+    % basisgeval
     if k == 0
         if t(i) <= x && x < t(i+1)
             val = 1;

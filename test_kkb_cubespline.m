@@ -68,18 +68,15 @@ title('B-spline benadering van f(x) = sin(x) + 0.5*cos(2x)')
 xlabel('x'); ylabel('y');
 grid on;
 %%
-% Define the knot vector and domain
-t = [0 0 0 0 1 2 3 4 5 5 5 5];  % Open uniform knots (for degrees 0 to 3)
-x_vals = linspace(t(1), t(end), 1000);  % Common x-range
+t = [0 0 0 0 1 2 3 4 5 5 5 5];  
+x_vals = linspace(t(1), t(end), 1000);  
 
-% Loop over spline degrees
 for k = 0:4
-    num_basis = length(t) - k - 1; % Number of basis functions of degree k
+    num_basis = length(t) - k - 1; 
     
     figure;
     hold on;
     
-    % Evaluate and plot each basis function
     for i = 1:num_basis
         y_vals = zeros(size(x_vals));
         for j = 1:length(x_vals)
@@ -88,7 +85,6 @@ for k = 0:4
         plot(x_vals, y_vals, 'LineWidth', 2);
     end
     
-    % Plot formatting
     title(['B-spline Basis Functions of Degree ' num2str(k)]);
     xlabel('x');
     ylabel('Amplitude');
